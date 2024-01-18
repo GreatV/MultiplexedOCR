@@ -5,38 +5,26 @@
 ### Requirements:
 
 ```bash
-conda create --name multiplexer
-conda activate multiplexer
-# sudo apt install nvidia-cuda-toolkit  # install nvcc if it's not already there
-pip install yacs==0.1.8  # Note: conda only has yacs v0.1.6 now
+pip install yacs
 pip install numpy
 pip install opencv-python
-# run `nvcc --version` to decide the cudatoolkit version
 
-conda install pytorch torchvision torchaudio cudatoolkit=10.1 -c pytorch
+pip install torch torchvision
 pip install pyclipper
-conda install shapely
-conda install -c conda-forge pycocotools
-conda install -c conda-forge ftfy
+pip install shapely
+pip install pycocotools
+pip install ftfy
 pip install tensorboard
 pip install submitit
 pip install tqdm
 pip install editdistance
 pip install scipy
+# for dev
 pip install black
 pip install isort==5.9.3
 pip install flake8==3.9.2
 
-python setup.py build_ext install
-# Note: if the above command doesn't work,
-# you can try the following depending on your 
-# CUDA/nvcc/gcc compatibility versions and locations
-# See https://stackoverflow.com/a/46380601
-# For example, if `nvcc --version` says version 10.1, you can use/install g++-8 if it's not there
-sudo apt install g++-8
-
-python setup.py build develop
-
+python setup.py install
 ```
 
 ## Demo 

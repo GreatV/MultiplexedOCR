@@ -1,7 +1,7 @@
 # Copyright (c) Facebook, Inc. and its affiliates. All Rights Reserved.
 import torch
 
-from multiplexer.layers import nms as box_nms
+from torchvision.ops import nms as box_nms
 from multiplexer.structures.bounding_box import BoxList
 from multiplexer.structures.rotated_box_list import RotatedBoxList
 from multiplexer.structures.segmentation_mask import SegmentationMask

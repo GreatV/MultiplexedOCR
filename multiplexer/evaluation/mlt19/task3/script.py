@@ -18,7 +18,7 @@ from collections import namedtuple
 
 import numpy as np
 from shapely import geometry as plg
-from shapely.geos import TopologicalError
+from shapely.errors import TopologicalError
 from tqdm import tqdm
 
 from multiplexer.evaluation.mlt19.utils import MLT19Utils as utils

@@ -221,7 +221,7 @@ class BaseSequencePredictor(nn.Module):
             .transpose(1, 2)
         )
         if self.training:
-            bos_onehot = np.zeros((seq_decoder_input_reshape.size(1), 1), dtype=np.int32)
+            bos_onehot = np.zeros((seq_decoder_input_reshape.size(1), 1), dtype=int)
             bos_onehot[:, 0] = self.cfg.SEQUENCE.BOS_TOKEN
             decoder_input = torch.tensor(bos_onehot.tolist(), device=device)
             decoder_hidden = torch.zeros(
@@ -327,7 +327,7 @@ class BaseSequencePredictor(nn.Module):
                     detailed_decoded_scores.append(detailed_char_scores)
             else:
                 for batch_index in range(seq_decoder_input_reshape.size(1)):
-                    bos_onehot = np.zeros((1, 1), dtype=np.int32)
+                    bos_onehot = np.zeros((1, 1), dtype=int)
                     bos_onehot[:, 0] = self.cfg.SEQUENCE.BOS_TOKEN
                     decoder_input = torch.tensor(bos_onehot.tolist(), device=device)
                     decoder_hidden = torch.zeros((1, self.hidden_size), device=device)
@@ -370,7 +370,7 @@ class BaseSequencePredictor(nn.Module):
                 all_seqs.append((seq, seq_score, seq[-1][2], True))
                 continue
             decoder_hidden = seq[-1][-1][0]
-            onehot = np.zeros((1, 1), dtype=np.int32)
+            onehot = np.zeros((1, 1), dtype=int)
             onehot[:, 0] = seq[-1][0]
             decoder_input = torch.tensor(onehot.tolist(), device=device)
             decoder_output, decoder_hidden, decoder_attention = self.seq_decoder(

@@ -21,7 +21,7 @@ import re
 import editdistance
 import numpy as np
 from shapely import geometry as plg
-from shapely.geos import TopologicalError
+from shapely.errors import TopologicalError
 from tqdm import tqdm
 
 from multiplexer.evaluation.mlt19.task4 import rrc_evaluation_funcs_1_1 as rrc_evaluation_funcs

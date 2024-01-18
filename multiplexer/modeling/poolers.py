@@ -4,8 +4,9 @@ import math
 import torch
 from torch import nn
 
-from multiplexer.layers import ROIAlign, cat
-
+# from multiplexer.layers import ROIAlign, cat
+from multiplexer.layers import cat
+from torchvision.ops import RoIAlign
 
 class LevelMapper(object):
     """Determine which FPN level each RoI in a set of RoIs should map to based
@@ -62,7 +63,7 @@ class Pooler(nn.Module):
         for scale in scales:
             if pooler_type == "ROIAlign":
                 poolers.append(
-                    ROIAlign(output_size, spatial_scale=scale, sampling_ratio=sampling_ratio)
+                    RoIAlign(output_size, spatial_scale=scale, sampling_ratio=sampling_ratio)
                 )
             elif pooler_type == "ROIAlignV2":
                 from detectron2.layers.roi_align import ROIAlign as ROIAlignV2

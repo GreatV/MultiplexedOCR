@@ -2,13 +2,8 @@
 import os
 import sys
 
-try:
-    from torch.hub import HASH_REGEX, _download_url_to_file, urlparse
-except ImportError:
-    from torch.utils.model_zoo import _download_url_to_file
-    from torch.utils.model_zoo import urlparse
-    from torch.utils.model_zoo import HASH_REGEX
 
+from torch.hub import HASH_REGEX, download_url_to_file, urlparse
 from multiplexer.utils.comm import is_main_process, synchronize
 
 
@@ -55,6 +50,6 @@ def cache_url(url, model_dir=None, progress=True):
             # if the hash_prefix is less than 6 characters
             if len(hash_prefix) < 6:
                 hash_prefix = None
-        _download_url_to_file(url, cached_file, hash_prefix, progress=progress)
+        download_url_to_file(url, cached_file, hash_prefix, progress=progress)
     synchronize()
     return cached_file

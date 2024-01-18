@@ -137,13 +137,13 @@ class RandomCrop(object):
         if random.random() < self.prob:
             im = np.array(image)
             w, h = image.size
-            h_array = np.zeros((h), dtype=np.int32)
-            w_array = np.zeros((w), dtype=np.int32)
+            h_array = np.zeros((h), dtype=int)
+            w_array = np.zeros((w), dtype=int)
             boxes = target.bbox.numpy()
             if len(boxes) == 0:
                 return image, target
             for box in boxes:
-                box = np.round(box, decimals=0).astype(np.int32)
+                box = np.round(box, decimals=0).astype(int)
                 minx = box[0]
                 maxx = box[2]
                 w_array[minx:maxx] = 1
@@ -303,13 +303,13 @@ class RandomCropV2(object):
 #         if random.random() < self.prob:
 #             im = np.array(image)
 #             w, h = image.size
-#             h_array = np.zeros((h), dtype=np.int32)
-#             w_array = np.zeros((w), dtype=np.int32)
+#             h_array = np.zeros((h), dtype=int)
+#             w_array = np.zeros((w), dtype=int)
 #             boxes = target.bbox.numpy()
 #             if len(boxes) == 0:
 #                 return image, target
 #             for box in boxes:
-#                 box = np.round(box, decimals=0).astype(np.int32)
+#                 box = np.round(box, decimals=0).astype(int)
 #                 minx = box[0]
 #                 maxx = box[2]
 #                 w_array[minx:maxx] = 1

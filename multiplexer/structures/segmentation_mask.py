@@ -173,7 +173,7 @@ class SegmentationMask(object):
             poly = poly.get_polygons()[0]
             poly = poly.reshape((-1, 2)).numpy()
             if ignore_difficult and label.item() == -1:
-                cv2.fillPoly(training_mask, poly.astype(np.int32)[np.newaxis, :, :], 0)
+                cv2.fillPoly(training_mask, poly.astype(int)[np.newaxis, :, :], 0)
                 continue
             if poly.shape[0] < 4:
                 continue
@@ -189,11 +189,11 @@ class SegmentationMask(object):
             pco.AddPath(subj, pyclipper.JT_ROUND, pyclipper.ET_CLOSEDPOLYGON)
             s = pco.Execute(-d)
             if s == []:
-                cv2.fillPoly(training_mask, poly.astype(np.int32)[np.newaxis, :, :], 0)
+                cv2.fillPoly(training_mask, poly.astype(int)[np.newaxis, :, :], 0)
                 continue
             out = convert_2d_tuple(s[0])
             out = np.array(out).reshape(-1, 2)
-            cv2.fillPoly(seg_map[0, :, :], [out.astype(np.int32)], 1)
+            cv2.fillPoly(seg_map[0, :, :], [out.astype(int)], 1)
         return seg_map, training_mask
 
 
@@ -465,10 +465,10 @@ class CharPolygons(object):
             char_map_weight = np.ones((37,))
             for i, p in enumerate(self.char_boxes):
                 poly = p.numpy().reshape(4, 2)
-                # x_center = np.mean(poly[:,0], axis = 0).astype(np.int32)
-                # y_center = np.mean(poly[:,1], axis = 0).astype(np.int32)
+                # x_center = np.mean(poly[:,0], axis = 0).astype(int)
+                # y_center = np.mean(poly[:,1], axis = 0).astype(int)
                 poly = shrink_poly(poly, 0.25)
-                cv2.fillPoly(char_map, [poly.astype(np.int32)], int(self.char_classes[i]))
+                cv2.fillPoly(char_map, [poly.astype(int)], int(self.char_classes[i]))
 
             pos_index = np.where(char_map > 0)
             pos_num = pos_index[0].size
@@ -529,15 +529,15 @@ class CharPolygons(object):
             word_length = 0
             for i, p in enumerate(self.char_boxes):
                 poly = p.numpy().reshape(4, 2)
-                # x_center = np.mean(poly[:,0], axis = 0).astype(np.int32)
-                # y_center = np.mean(poly[:,1], axis = 0).astype(np.int32)
+                # x_center = np.mean(poly[:,0], axis = 0).astype(int)
+                # y_center = np.mean(poly[:,1], axis = 0).astype(int)
                 # if is_poly_inbox(poly, height, width):
                 if i < 32:
                     decoder_target[i] = int(self.char_classes[i])
                     word_target[i] = int(self.char_classes[i])
                     word_length += 1
                 poly = shrink_poly(poly, 0.25)
-                cv2.fillPoly(char_map, [poly.astype(np.int32)], int(self.char_classes[i]))
+                cv2.fillPoly(char_map, [poly.astype(int)], int(self.char_classes[i]))
             end_point = min(max(1, word_length), 31)
             word_target[end_point] = C + 1
             pos_index = np.where(char_map > 0)
